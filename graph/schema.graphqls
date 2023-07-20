@@ -1,0 +1,51 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+type Task {
+  id: ID!
+  status: String!
+  title: String!
+  description: String!
+}
+
+type CreatePayload {
+  id: ID!
+}
+
+type Query {
+  allTasks: [Task!]!
+  taskByID(filter: ID!): Task!
+  completedTasks: [Task!]!
+  openedTasks: [Task!]!
+}
+
+input TaskCreateInput {
+  title: String!
+  description: String!
+}
+
+input TaskUpdateInput{
+  id: ID!
+  title: String!
+  description: String!
+}
+
+input TaskCompleteInput {
+  id: ID!
+}
+
+input TaskReopenInput {
+  id: ID!
+}
+
+type Mutation {
+  createTask(input: TaskCreateInput!): CreatePayload!
+  updateTask(input: TaskUpdateInput!): Error!
+  completeTask(input: TaskCompleteInput): Error!
+  reopenTask(input: TaskReopenInput): Error!
+}
+
+type Error {
+  message: String!
+}
